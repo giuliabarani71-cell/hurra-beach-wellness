@@ -283,6 +283,19 @@ a{color:inherit;text-decoration:none}
 .book h2{margin:16px 0 0;font-weight:200;text-transform:uppercase;letter-spacing:.1em;line-height:1.05;font-size:clamp(40px,7vw,88px)}
 .book h2 em{display:block;font-size:.55em;margin-top:8px}
 .book p.lede{margin:22px 0 0;color:rgba(255,255,255,.85);max-width:46ch;font-size:clamp(17px,1.9vw,19px)}
+/* prezzo */
+.price-hero{display:inline-flex;align-items:baseline;gap:10px;margin:22px 0 0;padding:9px 20px;border-radius:99px;
+  border:1px solid rgba(242,193,78,.65);background:rgba(242,193,78,.1);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.price-hero b{font-weight:500;font-size:clamp(18px,2vw,22px);letter-spacing:.06em;color:var(--gold)}
+.price-hero span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.book-meta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin-top:26px}
+.book-meta .spots{margin-top:0}
+.price-tag{display:flex;align-items:baseline;gap:10px;padding:10px 20px;border-radius:16px;background:rgba(242,193,78,.12);border:1px solid rgba(242,193,78,.55)}
+.price-tag span{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--lagoon)}
+.price-tag b{font-weight:500;font-size:clamp(22px,2.6vw,28px);letter-spacing:.04em;color:var(--gold)}
+.price-tag small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.f-total{margin:-2px 0 14px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--lagoon)}
+.f-total b{margin-left:6px;font-size:18px;letter-spacing:.04em;font-weight:500;color:var(--gold)}
 .spots{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:8px 18px;border:1px solid rgba(242,193,78,.6);border-radius:99px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,193,78,.7)}70%{box-shadow:0 0 0 10px rgba(242,193,78,0)}}
@@ -427,6 +440,7 @@ body.adm-open{overflow:hidden}
           <li>9 AM – 11 AM</li>
           <li>Punta Popi · Las Terrenas</li>
         </ul>
+        <p class="price-hero fade-up" style="animation-delay:1.9s"><b>RD$2,000</b><span>per person</span></p>
         <div class="hero-cta fade-up" style="animation-delay:2s">
           <a class="btn btn-gold" href="#book">
             Book your spot
@@ -586,7 +600,10 @@ body.adm-open{overflow:hidden}
         <p class="eyebrow reveal">Saturday 5 December · 9 – 11 AM</p>
         <h2 class="reveal d1">Book your spot <em class="gold-i">Live the Caribbean</em></h2>
         <p class="lede reveal d2">Places are limited to keep the experience intimate and sustainable. Book online in a minute and we'll save your spot on the sand.</p>
-        <div class="spots reveal d2"><i class="dot" aria-hidden="true"></i>Limited places</div>
+        <div class="book-meta reveal d2">
+          <div class="price-tag"><span>Price</span><b>RD$2,000</b><small>per person</small></div>
+          <div class="spots"><i class="dot" aria-hidden="true"></i>Limited places</div>
+        </div>
 
         <form class="book-form reveal d3" id="book-form" novalidate>
           <div class="f-row">
@@ -599,6 +616,7 @@ body.adm-open{overflow:hidden}
               <select name="people"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
             </label>
           </div>
+          <p class="f-total" aria-live="polite">Total <b id="f-total">RD$2,000</b></p>
           <label class="f"><span>Notes</span><textarea name="notes" rows="2" maxlength="500" placeholder="Anything we should know?"></textarea></label>
           <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label>
           <label class="consent"><input type="checkbox" name="consent" required><span>I agree that Hurra Events stores my details only to manage this booking.</span></label>
@@ -785,6 +803,12 @@ body.adm-open{overflow:hidden}
   /* prenotazione online → Worker Cloudflare */
   var API = "https://hurra-bookings.giuliabarani71.workers.dev";
   var form = document.getElementById("book-form"), msg = document.getElementById("f-msg");
+
+  /* totale = RD$2,000 a persona */
+  var PRICE = 2000, totalEl = document.getElementById("f-total");
+  function updateTotal(){ totalEl.textContent = "RD$" + (PRICE * (parseInt(form.elements.people.value, 10) || 1)).toLocaleString("en-US"); }
+  form.elements.people.addEventListener("change", updateTotal);
+  updateTotal();
   form.addEventListener("submit", function(e){
     e.preventDefault();
     msg.textContent = "";
