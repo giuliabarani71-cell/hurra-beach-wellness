@@ -94,6 +94,15 @@ a{color:inherit;text-decoration:none}
 .nav-links a:hover{color:var(--gold)}
 @media (min-width:860px){.nav-links{display:flex}}
 .nav.solid{background:rgba(251,244,233,.86);-webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px);border-color:var(--line);box-shadow:0 10px 30px -26px rgba(6,42,62,.6)}
+/* selettore lingua */
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang{display:inline-flex;padding:3px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lang button{font:inherit;font-size:10.5px;font-weight:500;letter-spacing:.14em;border:0;background:none;color:rgba(255,255,255,.85);padding:6px 10px;border-radius:99px;cursor:pointer;transition:background .2s ease,color .2s ease}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--sea-deep)}
+.nav.solid .lang{background:rgba(11,79,115,.06);border-color:var(--line)}
+.nav.solid .lang button{color:var(--ink-2)}
+.nav.solid .lang button[aria-pressed="true"]{background:var(--sea);color:#fff}
+@media (max-width:420px){.nav-right{gap:8px}.lang button{padding:6px 8px}.nav .btn-sm{padding:8px 12px;letter-spacing:.1em}}
 .nav.solid .mark{box-shadow:none;padding-inline:0;background:transparent}
 .nav.solid .nav-links{color:var(--ink-2)}
 .nav.solid .nav-links a:hover{color:var(--sea-2)}
@@ -411,11 +420,17 @@ body.adm-open{overflow:hidden}
   <div class="wrap nav-in">
     <a class="mark" href="#top" aria-label="Hurra Events — home"><img src="hurra-mark.png" alt="Hurra Events" width="124" height="34"></a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#program">Program</a>
-      <a href="#philosophy">Philosophy</a>
-      <a href="#book">Book</a>
+      <a href="#program" data-i18n="navProgram">Program</a>
+      <a href="#philosophy" data-i18n="navPhilo">Philosophy</a>
+      <a href="#book" data-i18n="navBook">Book</a>
     </nav>
-    <a class="btn btn-gold btn-sm" href="#book">Book your spot</a>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language / Idioma">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <a class="btn btn-gold btn-sm" href="#book" data-i18n="navBookBtn">Book your spot</a>
+    </div>
   </div>
 </header>
 
@@ -428,25 +443,25 @@ body.adm-open{overflow:hidden}
 
     <div class="wrap hero-grid">
       <div>
-        <p class="eyebrow fade-up" style="animation-delay:.2s">Hurra Events presents</p>
+        <p class="eyebrow fade-up" style="animation-delay:.2s" data-i18n="presents">Hurra Events presents</p>
         <h1 id="title">
           <span class="line" data-split>Caribbean</span>
           <span class="line" data-split>Beach</span>
           <span class="line sub gold-i" data-split data-delay="0.9">Wellness Experience</span>
         </h1>
         <div class="gold-rule" aria-hidden="true"></div>
-        <p class="tagline fade-up" style="animation-delay:1.6s">Feel the energy. Live the Caribbean. <em class="magic">Sea Magic</em></p>
+        <p class="tagline fade-up" style="animation-delay:1.6s" data-i18n="tagline">Feel the energy. Live the Caribbean. <em class="magic">Sea Magic</em></p>
         <ul class="when fade-up" style="animation-delay:1.8s">
-          <li><b>Sat 5 December</b></li>
+          <li><b data-i18n="whenDate">Sat 5 December</b></li>
           <li>9 AM – 11 AM</li>
           <li>Punta Popi · Las Terrenas</li>
         </ul>
-        <p class="price-hero fade-up" style="animation-delay:1.9s"><b>RD$2,000</b><span>per person</span></p>
+        <p class="price-hero fade-up" style="animation-delay:1.9s"><b>RD$2,000</b><span data-i18n="perPerson1">per person</span></p>
         <div class="hero-cta fade-up" style="animation-delay:2s">
           <a class="btn btn-gold" href="#book">
-            Book your spot
+            <span data-i18n="heroBook">Book your spot</span>
           </a>
-          <a class="btn btn-glass" href="#program">See the program</a>
+          <a class="btn btn-glass" href="#program" data-i18n="seeProgram">See the program</a>
         </div>
       </div>
 
@@ -472,14 +487,14 @@ body.adm-open{overflow:hidden}
   <section class="wrap count" aria-label="Countdown">
     <div class="count-card reveal">
       <div>
-        <p class="eyebrow" id="count-eyebrow">Saturday 5 December · 9 AM</p>
-        <h2 id="count-title">The tide turns in…</h2>
+        <p class="eyebrow" id="count-eyebrow" data-i18n="countEyebrow">Saturday 5 December · 9 AM</p>
+        <h2 id="count-title" data-i18n="countTitle">The tide turns in…</h2>
       </div>
       <div class="clock" id="clock" role="timer" aria-live="off">
-        <div class="unit"><b data-u="d">00</b><span>Days</span></div>
-        <div class="unit"><b data-u="h">00</b><span>Hours</span></div>
-        <div class="unit"><b data-u="m">00</b><span>Min</span></div>
-        <div class="unit"><b data-u="s">00</b><span>Sec</span></div>
+        <div class="unit"><b data-u="d">00</b><span data-i18n="uDays">Days</span></div>
+        <div class="unit"><b data-u="h">00</b><span data-i18n="uHours">Hours</span></div>
+        <div class="unit"><b data-u="m">00</b><span data-i18n="uMin">Min</span></div>
+        <div class="unit"><b data-u="s">00</b><span data-i18n="uSec">Sec</span></div>
       </div>
     </div>
 
@@ -488,8 +503,8 @@ body.adm-open{overflow:hidden}
   <!-- PROGRAM -->
   <section class="section wrap" id="program">
     <div class="head reveal">
-      <h2>The Program</h2>
-      <p>A morning of movement, music and connection, right where the palms meet the turquoise sea.</p>
+      <h2 data-i18n="progTitle">The Program</h2>
+      <p data-i18n="progLede">A morning of movement, music and connection, right where the palms meet the turquoise sea.</p>
     </div>
 
     <div class="timeline" id="timeline">
@@ -499,9 +514,9 @@ body.adm-open{overflow:hidden}
         <span class="time">9:00 – 9:30 AM</span>
         <div class="moment-card">
           <div>
-            <h3>Welcome <em>&amp;</em> Connect</h3>
-            <p>Meet us halfway along Punta Popi Beach. Connect with new people while enjoying fresh tropical fruit and natural juices, accompanied by chill beach music.</p>
-            <ul class="chips"><li class="g">Papaya</li><li class="g">Pineapple</li><li class="g">Banana</li><li class="g">Mango</li><li>Natural juices</li></ul>
+            <h3 data-i18n="m1Title">Welcome <em>&amp;</em> Connect</h3>
+            <p data-i18n="m1Text">Meet us halfway along Punta Popi Beach. Connect with new people while enjoying fresh tropical fruit and natural juices, accompanied by chill beach music.</p>
+            <ul class="chips"><li class="g" data-i18n="cPapaya">Papaya</li><li class="g" data-i18n="cPine">Pineapple</li><li class="g" data-i18n="cBanana">Banana</li><li class="g">Mango</li><li data-i18n="cJuices">Natural juices</li></ul>
           </div>
           <div class="art art-1" aria-hidden="true">
             <svg viewBox="0 0 200 160">
@@ -519,10 +534,10 @@ body.adm-open{overflow:hidden}
         <span class="time">9:30 – 10:30 AM</span>
         <div class="moment-card">
           <div>
-            <h3>Total Body <em>Experience</em></h3>
-            <p>A professional personal trainer will guide you through a full-body workout, including warm-up, stretching and exercises suitable for all fitness levels, ages 18+. Enjoy an energizing live DJ set by Francesca Faggella throughout the session.</p>
-            <ul class="chips"><li>Warm-up</li><li>Stretching</li><li>Full-body workout</li><li class="g">Live DJ set</li></ul>
-            <div class="who"><span class="who-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><span>Live DJ set by <b>Francesca Faggella</b></span></div>
+            <h3 data-i18n="m2Title">Total Body <em>Experience</em></h3>
+            <p data-i18n="m2Text">A professional personal trainer will guide you through a full-body workout, including warm-up, stretching and exercises suitable for all fitness levels, ages 18+. Enjoy an energizing live DJ set by Francesca Faggella throughout the session.</p>
+            <ul class="chips"><li data-i18n="cWarm">Warm-up</li><li data-i18n="cStretch">Stretching</li><li data-i18n="cFull">Full-body workout</li><li class="g" data-i18n="cDj">Live DJ set</li></ul>
+            <div class="who"><span class="who-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><span data-i18n="whoDj">Live DJ set by <b>Francesca Faggella</b></span></div>
           </div>
           <div class="art art-2" aria-hidden="true">
             <svg viewBox="0 0 200 160">
@@ -539,11 +554,11 @@ body.adm-open{overflow:hidden}
         <span class="time">10:30 – 11:00 AM</span>
         <div class="moment-card">
           <div>
-            <h3>Capture <em>the</em> Moment</h3>
-            <p class="lead-gold">Amazing pics, digital contents and…</p>
-            <p>Connect, relax and create unforgettable memories with our professional photographer Giulia Barani: professional photography, optional drone footage and digital content.</p>
-            <ul class="chips"><li>Professional photography</li><li class="g">Optional drone footage</li><li>Digital content</li></ul>
-            <div class="who"><span class="who-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4Z"/><circle cx="12" cy="13" r="3.5"/></svg></span><span>Photography by <b>Giulia Barani</b></span></div>
+            <h3 data-i18n="m3Title">Capture <em>the</em> Moment</h3>
+            <p class="lead-gold" data-i18n="m3Lead">Amazing pics, digital contents and…</p>
+            <p data-i18n="m3Text">Connect, relax and create unforgettable memories with our professional photographer Giulia Barani: professional photography, optional drone footage and digital content.</p>
+            <ul class="chips"><li data-i18n="cPhoto">Professional photography</li><li class="g" data-i18n="cDrone">Optional drone footage</li><li data-i18n="cDigital">Digital content</li></ul>
+            <div class="who"><span class="who-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4Z"/><circle cx="12" cy="13" r="3.5"/></svg></span><span data-i18n="whoPhoto">Photography by <b>Giulia Barani</b></span></div>
           </div>
           <div class="art art-3" aria-hidden="true">
             <svg viewBox="0 0 200 160">
@@ -564,8 +579,8 @@ body.adm-open{overflow:hidden}
     <div class="shore-bg" id="shore-bg" role="img" aria-label="Aerial view of Punta Popi Beach: palms, golden sand and turquoise water"></div>
     <svg class="wave-top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 0h1440v20c-120 0-120 26-240 26S1080 20 960 20 840 46 720 46 600 20 480 20 360 46 240 46 120 20 0 20Z"/></svg>
     <div class="wrap">
-      <h2 class="reveal">Meet us halfway along Punta Popi Beach</h2>
-      <p class="reveal d1"><b>Las Terrenas</b> · Samaná · Dominican Republic</p>
+      <h2 class="reveal" data-i18n="shoreTitle">Meet us halfway along Punta Popi Beach</h2>
+      <p class="reveal d1" data-i18n="shoreSub"><b>Las Terrenas</b> · Samaná · Dominican Republic</p>
     </div>
   </section>
 
@@ -573,16 +588,16 @@ body.adm-open{overflow:hidden}
   <section class="section philo" id="philosophy">
     <div class="wrap">
       <div class="head reveal">
-        <p class="eyebrow">Our philosophy</p>
-        <h2>This Is Hurra</h2>
+        <p class="eyebrow" data-i18n="philoEyebrow">Our philosophy</p>
+        <h2 data-i18n="philoTitle">This Is Hurra</h2>
       </div>
       <div class="pillars">
-        <div class="pillar reveal"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 34c-8-6-13-11-13-18a7 7 0 0 1 13-3 7 7 0 0 1 13 3c0 7-5 12-13 18Z"/><path d="M11 20h5l2-4 3 8 2-4h6"/></svg><h3>Wellness</h3></div>
-        <div class="pillar reveal d1"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 30V10l18-4v20"/><circle cx="11" cy="30" r="4"/><circle cx="29" cy="26" r="4"/></svg><h3>Music</h3></div>
-        <div class="pillar reveal d2"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 36V18"/><path d="M20 18c-2-6-9-8-14-6 5 0 10 2 14 6Zm0 0c2-6 9-8 14-6-5 0-10 2-14 6Zm0 0c-4-4-4-11 0-14 4 3 4 10 0 14Z"/><path d="M8 36c4-2 8-2 12 0s8 2 12 0"/></svg><h3>Nature</h3></div>
-        <div class="pillar reveal d3"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="14" cy="13" r="5"/><circle cx="27" cy="13" r="5"/><path d="M5 33c1-6 4.5-9 9-9s8 3 9 9M18 27c1.5-2 4-3 9-3 4.5 0 8 3 9 9"/></svg><h3>Connection</h3></div>
+        <div class="pillar reveal"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 34c-8-6-13-11-13-18a7 7 0 0 1 13-3 7 7 0 0 1 13 3c0 7-5 12-13 18Z"/><path d="M11 20h5l2-4 3 8 2-4h6"/></svg><h3 data-i18n="pWell">Wellness</h3></div>
+        <div class="pillar reveal d1"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 30V10l18-4v20"/><circle cx="11" cy="30" r="4"/><circle cx="29" cy="26" r="4"/></svg><h3 data-i18n="pMusic">Music</h3></div>
+        <div class="pillar reveal d2"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 36V18"/><path d="M20 18c-2-6-9-8-14-6 5 0 10 2 14 6Zm0 0c2-6 9-8 14-6-5 0-10 2-14 6Zm0 0c-4-4-4-11 0-14 4 3 4 10 0 14Z"/><path d="M8 36c4-2 8-2 12 0s8 2 12 0"/></svg><h3 data-i18n="pNature">Nature</h3></div>
+        <div class="pillar reveal d3"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="14" cy="13" r="5"/><circle cx="27" cy="13" r="5"/><path d="M5 33c1-6 4.5-9 9-9s8 3 9 9M18 27c1.5-2 4-3 9-3 4.5 0 8 3 9 9"/></svg><h3 data-i18n="pConn">Connection</h3></div>
       </div>
-      <p class="manifesto reveal">A sustainable experience that celebrates the beauty, colors and <em>vibrant energy</em> of the Dominican Republic.</p>
+      <p class="manifesto reveal" data-i18n="manifesto">A sustainable experience that celebrates the beauty, colors and <em>vibrant energy</em> of the Dominican Republic.</p>
     </div>
   </section>
 
@@ -598,47 +613,47 @@ body.adm-open{overflow:hidden}
         </div>
       </div>
       <div>
-        <p class="eyebrow reveal">Saturday 5 December · 9 – 11 AM</p>
-        <h2 class="reveal d1">Book your spot <em class="gold-i">Live the Caribbean</em></h2>
-        <p class="lede reveal d2">Places are limited to keep the experience intimate and sustainable. Book online in a minute and we'll save your spot on the sand.</p>
+        <p class="eyebrow reveal" data-i18n="bookEyebrow">Saturday 5 December · 9 – 11 AM</p>
+        <h2 class="reveal d1" data-i18n="bookTitle">Book your spot <em class="gold-i">Live the Caribbean</em></h2>
+        <p class="lede reveal d2" data-i18n="bookLede">Places are limited to keep the experience intimate and sustainable. Book online in a minute and we'll save your spot on the sand.</p>
         <div class="book-meta reveal d2">
-          <div class="price-tag"><span>Price</span><b>RD$2,000</b><small>per person</small></div>
-          <div class="spots"><i class="dot" aria-hidden="true"></i>Limited places</div>
+          <div class="price-tag"><span data-i18n="priceLabel">Price</span><b>RD$2,000</b><small data-i18n="perPerson2">per person</small></div>
+          <div class="spots"><i class="dot" aria-hidden="true"></i><span data-i18n="spots">Limited places</span></div>
         </div>
 
         <form class="book-form reveal d3" id="book-form" novalidate>
           <div class="f-row">
-            <label class="f"><span>Full name *</span><input name="name" autocomplete="name" required maxlength="80"></label>
-            <label class="f"><span>Phone / WhatsApp *</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" placeholder="+1 809 …"></label>
+            <label class="f"><span data-i18n="fName">Full name *</span><input name="name" autocomplete="name" required maxlength="80"></label>
+            <label class="f"><span data-i18n="fPhone">Phone / WhatsApp *</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" placeholder="+1 809 …"></label>
           </div>
           <div class="f-row">
-            <label class="f"><span>E-mail</span><input name="email" type="email" autocomplete="email" maxlength="120"></label>
-            <label class="f f-sm"><span>People</span>
+            <label class="f"><span data-i18n="fEmail">E-mail</span><input name="email" type="email" autocomplete="email" maxlength="120"></label>
+            <label class="f f-sm"><span data-i18n="fPeople">People</span>
               <select name="people"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
             </label>
           </div>
-          <p class="f-total" aria-live="polite">Total <b id="f-total">RD$2,000</b></p>
-          <label class="f"><span>Notes</span><textarea name="notes" rows="2" maxlength="500" placeholder="Anything we should know?"></textarea></label>
+          <p class="f-total" aria-live="polite"><span data-i18n="fTotal">Total</span> <b id="f-total">RD$2,000</b></p>
+          <label class="f"><span data-i18n="fNotes">Notes</span><textarea name="notes" rows="2" maxlength="500" placeholder="Anything we should know?" data-i18n-ph="fNotesPh"></textarea></label>
           <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label>
-          <label class="consent"><input type="checkbox" name="consent" required><span>I agree that Hurra Events stores my details only to manage this booking.</span></label>
-          <button class="btn btn-gold f-submit" type="submit">Confirm booking</button>
+          <label class="consent"><input type="checkbox" name="consent" required><span data-i18n="consent">I agree that Hurra Events stores my details only to manage this booking.</span></label>
+          <button class="btn btn-gold f-submit" type="submit" data-i18n="submit">Confirm booking</button>
           <p class="f-msg" id="f-msg" role="status" aria-live="polite"></p>
         </form>
         <div class="f-done" id="f-done" hidden>
           <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>
-          <h3>See you on the sand!</h3>
-          <p>Your booking is registered. We'll confirm it on WhatsApp in the next few days.</p>
+          <h3 data-i18n="doneTitle">See you on the sand!</h3>
+          <p data-i18n="doneText">Your booking is registered. We'll confirm it on WhatsApp in the next few days.</p>
         </div>
 
-        <p class="or reveal d3">Prefer to chat? Book on WhatsApp or save the date.</p>
+        <p class="or reveal d3" data-i18n="or">Prefer to chat? Book on WhatsApp or save the date.</p>
         <div class="channels reveal d3">
           <a class="btn btn-gold" data-wa href="#" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg>
-            Book on WhatsApp
+            <span data-i18n="bookWa">Book on WhatsApp</span>
           </a>
           <a class="btn btn-glass" href="#" id="ics">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
-            Add to calendar
+            <span data-i18n="addCal">Add to calendar</span>
           </a>
         </div>
         <p class="note reveal d3">WhatsApp <a data-wa href="#" target="_blank" rel="noopener">+39 331 930 8529</a> &nbsp;·&nbsp; <a href="mailto:hurraeventsrd@gmail.com?subject=Caribbean%20Beach%20Wellness%20Experience%20%E2%80%94%205%20December">hurraeventsrd@gmail.com</a></p>
@@ -703,6 +718,87 @@ body.adm-open{overflow:hidden}
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
   function toTop(){ var h = document.documentElement, b = h.style.scrollBehavior; h.style.scrollBehavior = "auto"; scrollTo(0, 0); h.style.scrollBehavior = b; }
   toTop();
+
+  /* lingue: inglese (testi della pagina) e spagnolo */
+  var ES = {
+    navProgram: "Programa", navPhilo: "Filosofía", navBook: "Reservar", navBookBtn: "Reserva tu lugar",
+    presents: "Hurra Events presenta",
+    tagline: 'Siente la energía. Vive el Caribe. <em class="magic">Sea Magic</em>',
+    whenDate: "Sáb 5 de diciembre",
+    perPerson1: "por persona", perPerson2: "por persona", priceLabel: "Precio",
+    heroBook: "Reserva tu lugar", seeProgram: "Ver el programa",
+    countEyebrow: "Sábado 5 de diciembre · 9 AM", countTitle: "La marea cambia en…",
+    uDays: "Días", uHours: "Horas", uMin: "Min", uSec: "Seg",
+    progTitle: "El programa",
+    progLede: "Una mañana de movimiento, música y conexión, justo donde las palmas se encuentran con el mar turquesa.",
+    m1Title: "Bienvenida <em>&amp;</em> Conexión",
+    m1Text: "Encuéntranos a mitad de la playa Punta Popi. Conecta con gente nueva mientras disfrutas de fruta tropical fresca y jugos naturales, con música chill de playa.",
+    cPapaya: "Lechosa", cPine: "Piña", cBanana: "Guineo", cJuices: "Jugos naturales",
+    m2Title: "Experiencia <em>Total Body</em>",
+    m2Text: "Un entrenador personal profesional te guiará en un entrenamiento de cuerpo completo, con calentamiento, estiramientos y ejercicios para todos los niveles, mayores de 18 años. Disfruta de un DJ set en vivo lleno de energía con Francesca Faggella durante toda la sesión.",
+    cWarm: "Calentamiento", cStretch: "Estiramientos", cFull: "Entrenamiento completo", cDj: "DJ set en vivo",
+    whoDj: "DJ set en vivo con <b>Francesca Faggella</b>",
+    m3Title: "Captura <em>el</em> momento",
+    m3Lead: "Fotos increíbles, contenido digital y…",
+    m3Text: "Conecta, relájate y crea recuerdos inolvidables con nuestra fotógrafa profesional Giulia Barani: fotografía profesional, video con dron opcional y contenido digital.",
+    cPhoto: "Fotografía profesional", cDrone: "Video con dron opcional", cDigital: "Contenido digital",
+    whoPhoto: "Fotografía de <b>Giulia Barani</b>",
+    shoreTitle: "Encuéntranos a mitad de la playa Punta Popi",
+    shoreSub: "<b>Las Terrenas</b> · Samaná · República Dominicana",
+    philoEyebrow: "Nuestra filosofía", philoTitle: "Esto es Hurra",
+    pWell: "Bienestar", pMusic: "Música", pNature: "Naturaleza", pConn: "Conexión",
+    manifesto: "Una experiencia sostenible que celebra la belleza, los colores y la <em>energía vibrante</em> de la República Dominicana.",
+    bookEyebrow: "Sábado 5 de diciembre · 9 – 11 AM",
+    bookTitle: 'Reserva tu lugar <em class="gold-i">Vive el Caribe</em>',
+    bookLede: "Los cupos son limitados para que la experiencia sea íntima y sostenible. Reserva en línea en un minuto y te guardamos tu lugar en la arena.",
+    spots: "Cupos limitados",
+    fName: "Nombre y apellido *", fPhone: "Teléfono / WhatsApp *", fEmail: "Correo electrónico", fPeople: "Personas",
+    fTotal: "Total", fNotes: "Notas", fNotesPh: "¿Algo que debamos saber?",
+    consent: "Acepto que Hurra Events guarde mis datos solo para gestionar esta reserva.",
+    submit: "Confirmar reserva",
+    doneTitle: "¡Nos vemos en la arena!",
+    doneText: "Tu reserva está registrada. Te la confirmaremos por WhatsApp en los próximos días.",
+    or: "¿Prefieres escribirnos? Reserva por WhatsApp o guarda la fecha.",
+    bookWa: "Reservar por WhatsApp", addCal: "Añadir al calendario",
+    /* testi generati dal codice */
+    jsNow: "¡Estamos en la playa ahora mismo!", jsAfter: "Gracias por vivir el Caribe con nosotros",
+    jsCheck: "Revisa los campos marcados.", jsSending: "Enviando…",
+    jsError: "Algo salió mal. Inténtalo de nuevo o ", jsErrorWa: "reserva por WhatsApp",
+    docTitle: "Caribbean Beach Wellness Experience · Hurra Events",
+    docDesc: "Siente la energía. Vive el Caribe. Sábado 5 de diciembre, 9–11 AM en la playa Punta Popi, Las Terrenas: bienvenida tropical, entrenamiento de cuerpo completo con DJ set en vivo y fotografía profesional. RD$2,000 por persona. Por Hurra Events."
+  };
+  var EN = {
+    jsNow: "We're on the beach right now!", jsAfter: "Thank you for living the Caribbean with us",
+    jsCheck: "Please check the highlighted fields.", jsSending: "Sending…",
+    jsError: "Something went wrong. Please try again or ", jsErrorWa: "book on WhatsApp"
+  };
+  var lang = "en";
+  var i18nEls = document.querySelectorAll("[data-i18n]"), phEls = document.querySelectorAll("[data-i18n-ph]");
+  i18nEls.forEach(function(el){ EN[el.dataset.i18n] = el.innerHTML; });
+  phEls.forEach(function(el){ EN[el.dataset.i18nPh] = el.getAttribute("placeholder"); });
+  EN.docTitle = document.title;
+  var metaDesc = document.querySelector('meta[name="description"]');
+  EN.docDesc = metaDesc.getAttribute("content");
+  function t(k){ var d = lang === "es" ? ES : EN; return d[k] != null ? d[k] : EN[k]; }
+  function setLang(l, remember){
+    lang = l === "es" ? "es" : "en";
+    document.documentElement.lang = lang;
+    i18nEls.forEach(function(el){ el.innerHTML = t(el.dataset.i18n); });
+    phEls.forEach(function(el){ el.setAttribute("placeholder", t(el.dataset.i18nPh)); });
+    document.title = t("docTitle"); metaDesc.setAttribute("content", t("docDesc"));
+    document.querySelectorAll(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
+    if (remember) { try { localStorage.setItem("hurra_lang", lang); } catch(e){} }
+    document.dispatchEvent(new Event("langchange"));
+  }
+  (function(){
+    var q = (location.search.match(/[?&]lang=(en|es)\b/) || [])[1], saved = null;
+    try { saved = localStorage.getItem("hurra_lang"); } catch(e){}
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+    setLang(q || saved || (/^es\b/i.test(nav) ? "es" : "en"), !!q);
+  })();
+  document.querySelectorAll(".lang button").forEach(function(b){
+    b.addEventListener("click", function(){ setLang(b.dataset.lang, true); });
+  });
   addEventListener("load", toTop);
   addEventListener("pageshow", function(e){ if (e.persisted) toTop(); });
 
@@ -783,13 +879,15 @@ body.adm-open{overflow:hidden}
 
   /* countdown: 5 dicembre 2026, 9:00 a Las Terrenas (UTC-4) */
   var start = Date.parse("2026-12-05T09:00:00-04:00"), end = Date.parse("2026-12-05T11:00:00-04:00");
-  var cells = {}, last = {};
+  var cells = {}, last = {}, started = null;
+  document.addEventListener("langchange", function(){ if (started) document.getElementById("count-title").textContent = t(started); });
   document.querySelectorAll("[data-u]").forEach(function(b){ cells[b.dataset.u] = b; });
   function pad(n){ return (n < 10 ? "0" : "") + n; }
   function tick(){
     var now = Date.now(), t = Math.max(0, start - now);
     if (now >= start){
-      document.getElementById("count-title").textContent = now < end ? "We're on the beach right now!" : "Thank you for living the Caribbean with us";
+      started = now < end ? "jsNow" : "jsAfter";
+      document.getElementById("count-title").textContent = t(started);
       document.getElementById("clock").hidden = true;
       return;
     }
@@ -823,12 +921,12 @@ body.adm-open{overflow:hidden}
     if (!f.consent.checked) bad.push(f.consent);
     if (bad.length){
       bad.forEach(function(el){ (el === f.consent ? form.querySelector(".consent") : el).classList.add("bad"); });
-      msg.textContent = "Please check the highlighted fields.";
+      msg.textContent = t("jsCheck");
       (bad[0] === f.consent ? f.consent : bad[0]).focus();
       return;
     }
     var btn = form.querySelector(".f-submit");
-    btn.disabled = true; btn.textContent = "Sending…";
+    btn.disabled = true; btn.textContent = t("jsSending");
     fetch(API + "/book", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -843,8 +941,8 @@ body.adm-open{overflow:hidden}
         done.scrollIntoView({block: "center", behavior: reduce ? "auto" : "smooth"});
       })
       .catch(function(){
-        btn.disabled = false; btn.textContent = "Confirm booking";
-        msg.innerHTML = 'Something went wrong. Please try again or <a href="' + wa + '" target="_blank" rel="noopener" style="color:#FFD978;text-decoration:underline">book on WhatsApp</a>.';
+        btn.disabled = false; btn.textContent = t("submit");
+        msg.innerHTML = t("jsError") + '<a href="' + wa + '" target="_blank" rel="noopener" style="color:#FFD978;text-decoration:underline">' + t("jsErrorWa") + '</a>.';
       });
   });
 
