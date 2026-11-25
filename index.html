@@ -366,6 +366,7 @@ a{color:inherit;text-decoration:none}
 .adm-err{margin:12px 0 0;min-height:1.4em;font-size:14px;color:#FFB3A8}
 .adm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-right:46px;margin-bottom:22px}
 .adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+@media (max-width:700px){.adm-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.adm-stats div{padding:12px}.adm-stats b{font-size:20px}}
 .adm-stats div{border-radius:16px;padding:14px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
 .adm-stats b{display:block;font-weight:400;font-size:clamp(22px,3vw,30px);color:var(--gold)}
 .adm-stats span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65)}
@@ -670,6 +671,7 @@ body.adm-open{overflow:hidden}
       <div class="adm-stats">
         <div><b id="adm-count">0</b><span>Prenotazioni</span></div>
         <div><b id="adm-people">0</b><span>Persone totali</span></div>
+        <div><b id="adm-total">RD$0</b><span>Totale previsto</span></div>
         <div><b id="adm-last">–</b><span>Ultima</span></div>
       </div>
       <div class="adm-tools">
@@ -678,7 +680,7 @@ body.adm-open{overflow:hidden}
       </div>
       <div class="adm-table">
         <table>
-          <thead><tr><th>Data</th><th>Nome</th><th>Telefono</th><th>E-mail</th><th>Persone</th><th>Note</th><th></th></tr></thead>
+          <thead><tr><th>Data</th><th>Nome</th><th>Telefono</th><th>E-mail</th><th>Persone</th><th>Totale</th><th>Note</th><th></th></tr></thead>
           <tbody id="adm-rows"></tbody>
         </table>
       </div>
@@ -852,6 +854,7 @@ body.adm-open{overflow:hidden}
     var box = $("adm"), key = "", items = [], lastFocus = null;
     try { key = sessionStorage.getItem("hurra_admin") || ""; } catch(e){}
 
+    function rd(n){ return "RD$" + n.toLocaleString("en-US"); }
     function fmt(iso){ return new Date(iso).toLocaleString("it-IT", {day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit"}); }
     function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
     function call(method, path){
@@ -875,7 +878,9 @@ body.adm-open{overflow:hidden}
     }
     function render(){
       $("adm-count").textContent = items.length;
-      $("adm-people").textContent = items.reduce(function(n, b){ return n + (b.people || 1); }, 0);
+      var ppl = items.reduce(function(n, b){ return n + (b.people || 1); }, 0);
+      $("adm-people").textContent = ppl;
+      $("adm-total").textContent = rd(ppl * PRICE);
       $("adm-last").textContent = items[0] ? fmt(items[0].createdAt).replace(",", "") : "–";
       $("adm-rows").innerHTML = items.length ? items.map(function(b){
         var tel = String(b.phone || "").replace(/[^\d]/g, "");
@@ -885,10 +890,11 @@ body.adm-open{overflow:hidden}
           '<td data-l="Tel"><a href="https://wa.me/' + esc(tel) + '" target="_blank" rel="noopener">' + esc(b.phone) + "</a></td>" +
           '<td data-l="E-mail">' + (b.email ? '<a href="mailto:' + esc(b.email) + '">' + esc(b.email) + "</a>" : "–") + "</td>" +
           '<td data-l="Persone">' + esc(b.people) + "</td>" +
+          '<td data-l="Totale">' + rd((b.people || 1) * PRICE) + "</td>" +
           '<td data-l="Note" class="notes">' + (esc(b.notes) || "–") + "</td>" +
           '<td class="act"><button class="del" type="button" title="Elimina" data-k="' + esc(b.key) + '">×</button></td>' +
         "</tr>";
-      }).join("") : '<tr><td colspan="7" class="empty">Ancora nessuna prenotazione.</td></tr>';
+      }).join("") : '<tr><td colspan="8" class="empty">Ancora nessuna prenotazione.</td></tr>';
     }
 
     function open(){
@@ -928,10 +934,10 @@ body.adm-open{overflow:hidden}
       }).catch(function(j){ $("adm-app-err").textContent = errText(j); });
     });
     $("adm-csv").addEventListener("click", function(){
-      var cols = [["createdAt","Data"],["name","Nome"],["phone","Telefono"],["email","E-mail"],["people","Persone"],["notes","Note"],["country","Paese"]];
+      var cols = [["createdAt","Data"],["name","Nome"],["phone","Telefono"],["email","E-mail"],["people","Persone"],["total","Totale (RD$)"],["notes","Note"],["country","Paese"]];
       var q = function(v){ v = String(v == null ? "" : v); return /[";\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
       var lines = [cols.map(function(c){ return c[1]; }).join(";")].concat(items.map(function(b){
-        return cols.map(function(c){ return q(c[0] === "createdAt" ? fmt(b.createdAt) : b[c[0]]); }).join(";");
+        return cols.map(function(c){ return q(c[0] === "createdAt" ? fmt(b.createdAt) : c[0] === "total" ? (b.people || 1) * PRICE : b[c[0]]); }).join(";");
       }));
       var a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], {type: "text/csv;charset=utf-8"}));
